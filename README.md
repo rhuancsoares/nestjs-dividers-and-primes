@@ -18,8 +18,12 @@ Learn More:
 
 # Getting Started
 
+```
+
 $ node --version
 >= v16.13.2
+
+```
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
