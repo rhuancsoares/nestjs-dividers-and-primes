@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { MathCalcService } from './functions/mathCalc.service';
 
 @Injectable()
 export class AppService {
+  constructor(private mathCalcService: MathCalcService) {}
+
   getHello(): string {
     return 'Hello World!';
   }
@@ -9,38 +12,11 @@ export class AppService {
   decompor(numero: number): any {
     let obj = {
       numero: numero,
-      divisores: this.retornaDividores(numero),
-      divisoresPrimos: this.retornaPrimos(this.retornaDividores(numero)),
+      divisores: this.mathCalcService.retornaDivisores(numero),
+      divisoresPrimos: this.mathCalcService.retornaPrimos(
+        this.mathCalcService.retornaDivisores(numero),
+      ),
     };
     return obj;
-  }
-
-  private retornaDividores(numeroEntrada: number) {
-    let dividores = [];
-    for (let i = 1; i <= numeroEntrada; i++) {
-      if (numeroEntrada % i === 0) {
-        dividores.push(i);
-      }
-    }
-    return dividores;
-  }
-
-  private retornaPrimos(numerosDividores: any) {
-    let primos = [];
-
-    for (let i in numerosDividores) {
-      let divisores = 0;
-      let numeroTestado = numerosDividores[i];
-      for (let count = 1; count <= numeroTestado; count++) {
-        if (numeroTestado % count === 0) {
-          divisores++;
-        }
-      }
-
-      if (divisores == 2 || numeroTestado === 1) {
-        primos.push(numeroTestado);
-      }
-    }
-    return primos;
   }
 }
